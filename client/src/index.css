@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-stone text-obsidian dark:bg-obsidian dark:text-stone;
+  }
+}
+
+/* Custom micro-animations */
+.spring-hover {
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.spring-hover:hover {
+  transform: scale(1.02);
+}
+
+/* Custom Quill Styles */
+.custom-quill .ql-toolbar.ql-snow {
+  border: none;
+  border-bottom: 1px dashed rgba(0,0,0,0.1);
+  padding: 0 0 10px 0;
+  margin-bottom: 10px;
+}
+.dark .custom-quill .ql-toolbar.ql-snow {
+  border-bottom-color: rgba(255,255,255,0.1);
+}
+.custom-quill .ql-container.ql-snow {
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+}
+.custom-quill .ql-editor {
+  padding: 0;
+}
+.custom-quill .ql-editor.ql-blank::before {
+  left: 0;
+  font-style: normal;
+  color: inherit;
+  opacity: 0.3;
+}
+.dark .custom-quill .ql-stroke {
+  stroke: #e6e4e0 !important;
+}
+.dark .custom-quill .ql-fill {
+  fill: #e6e4e0 !important;
+}
+.dark .custom-quill .ql-picker {
+  color: #e6e4e0 !important;
+}
+.dark .custom-quill .ql-picker-options {
+  background-color: #1a1a1a !important;
+  border-color: rgba(255,255,255,0.1) !important;
+}
