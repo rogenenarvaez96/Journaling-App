@@ -11,7 +11,7 @@ const router = express.Router();
 // Multer storage for public logos
 const publicStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const publicDir = path.join(process.cwd(), "uploads", "public");
+    const publicDir = path.join(process.cwd(), "server", "uploads", "public");
     if (!fs.existsSync(publicDir)) {
       fs.mkdirSync(publicDir, { recursive: true });
     }

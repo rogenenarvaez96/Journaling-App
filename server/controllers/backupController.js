@@ -34,7 +34,7 @@ export const exportBackup = async (req, res) => {
     archive.append(JSON.stringify({ journals, images }, null, 2), { name: 'journals.json' });
 
     for (const img of images) {
-      const imgPath = path.join(process.cwd(), img.filepath);
+      const imgPath = path.join(process.cwd(), 'server', img.filepath);
       if (fs.existsSync(imgPath)) {
         archive.file(imgPath, { name: `images/${img.filename}` });
       }
@@ -82,7 +82,7 @@ export const importBackup = async (req, res) => {
         }
         
         const newFilename = Date.now() + '-' + Math.round(Math.random() * 1e9) + path.extname(oldImg.filename);
-        const userDir = path.join(process.cwd(), 'uploads', req.user._id.toString());
+        const userDir = path.join(process.cwd(), 'server', 'uploads', req.user._id.toString());
         
         // Ensure user-isolated directory exists
         if (!fs.existsSync(userDir)) {

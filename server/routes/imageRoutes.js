@@ -11,7 +11,7 @@ const router = express.Router();
 // Files are strictly routed into an isolated folder named after the userId
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const userDir = path.join(process.cwd(), "uploads", req.user._id.toString());
+    const userDir = path.join(process.cwd(), "server", "uploads", req.user._id.toString());
     if (!fs.existsSync(userDir)) {
       fs.mkdirSync(userDir, { recursive: true });
     }

@@ -50,7 +50,7 @@ app.use("/api/images", imageRoutes);
 app.use("/api/settings", settingsRoutes);
 
 // Public uploads serving
-app.use("/public", express.static(path.join(process.cwd(), "uploads", "public")));
+app.use("/public", express.static(path.join(process.cwd(), "server", "uploads", "public")));
 
 // Private uploads (should NOT be exposed via express.static normally, 
 // but we leave this here as a reminder that we will build an authenticated route later)
