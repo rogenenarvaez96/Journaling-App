@@ -3,7 +3,7 @@ import { BookKey, ArrowRight, Moon, Sun, AlertCircle } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
 import { useSettings } from '../context/SettingsContext';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, Navigate } from 'react-router-dom';
 import { SERVER_URL } from '../config';
 
 const Register = () => {
@@ -18,6 +18,11 @@ const Register = () => {
   const { settings } = useSettings();
   const { register } = useAuth();
   const navigate = useNavigate();
+
+  // Protect the route: if registration is explicitly disabled and it's not the first run, boot them to login
+  if (settings && settings.registrationEnabled === false && !settings.isFirstRun) {
+    return <Navigate to="/login" replace />;
+  }
 
   const handleRegister = async (e) => {
     e.preventDefault();
