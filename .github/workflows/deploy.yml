@@ -1,0 +1,36 @@
+name: CI/CD Deployment
+
+on:
+  push:
+    branches:
+      - main # Change this to your deployment branch if different
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install Server Dependencies
+        run: |
+          cd server
+          npm install
+
+      - name: Install Client Dependencies & Build
+        run: |
+          cd client
+          npm install
+          npm run build
+
+      - name: Restart PM2 Service
+        run: |
+          # Only restart if it exists, otherwise start it
+          pm2 reload journal-api || pm2 start ecosystem.config.cjs
+          pm2 save
