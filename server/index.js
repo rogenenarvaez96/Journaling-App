@@ -14,6 +14,14 @@ import path from "path";
 
 dotenv.config();
 
+// Enforce security in production: Crash if JWT secrets are missing/default
+if (process.env.NODE_ENV === "production") {
+  if (!process.env.JWT_SECRET || !process.env.REFRESH_TOKEN_SECRET || process.env.JWT_SECRET === "temp_secret") {
+    console.error("FATAL ERROR: JWT_SECRET or REFRESH_TOKEN_SECRET is missing or insecurely configured in production.");
+    process.exit(1);
+  }
+}
+
 // Connect to MongoDB
 connectDB();
 

@@ -6,6 +6,7 @@ import { Save, ArrowLeft, Loader2, Smile, FileText, Image as ImageIcon, Archive 
 import { SERVER_URL } from '../config';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import DOMPurify from 'dompurify';
 
 const MOODS = ['Happy', 'Neutral', 'Sad', 'Angry', 'Productive', 'Tired'];
 
@@ -283,7 +284,7 @@ const JournalEditor = () => {
               <div className="w-full flex-1 relative z-0 min-h-[300px] ql-snow custom-quill">
                 <div 
                   className="ql-editor !p-0 text-lg font-sans leading-relaxed bg-transparent"
-                  dangerouslySetInnerHTML={{ __html: content.includes('<') ? content : content.replace(/\n/g, '<br>') }}
+                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content.includes('<') ? content : content.replace(/\n/g, '<br>')) }}
                 />
               </div>
             )}

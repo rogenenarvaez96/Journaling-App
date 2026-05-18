@@ -23,12 +23,13 @@ const storage = multer.diskStorage({
   }
 });
 
-// Reject anything that isn't a standard image
+// Reject anything that isn't a standard image, explicitly blocking SVGs which can execute XSS
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith("image/")) {
+  const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+  if (allowedMimeTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(new Error("Only images are allowed"), false);
+    cb(new Error("Only standard image formats (JPEG, PNG, WebP, GIF) are allowed"), false);
   }
 };
 
