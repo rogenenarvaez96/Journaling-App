@@ -11,8 +11,12 @@ import journalRoutes from "./routes/journalRoutes.js";
 import imageRoutes from "./routes/imageRoutes.js";
 import settingsRoutes from "./routes/settingsRoutes.js";
 import path from "path";
+import { fileURLToPath } from "url";
 
-dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+dotenv.config({ path: path.join(__dirname, ".env") });
 
 // Enforce security in production: Crash if JWT secrets are missing/default
 if (process.env.NODE_ENV === "production") {
